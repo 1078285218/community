@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>出错了</title>
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+</head>
+<!--顶部-->
+<div th:insert="navigation :: head_top"></div>
+<!--顶部下方-->
+<div class="container-fluid main">
+    <div class="row" style="margin-bottom: -50px;text-align: center">
+        <div class="jumbotron">
+            <h1 style="margin-left: 50px">出错了！</h1>
+            <p th:text="${message}">请稍后重试</p>
+            <p><a class="btn btn-primary btn-lg" href="/" role="button">点击回到主页</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

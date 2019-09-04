@@ -67,6 +67,7 @@ public class GithubProvider {
         try {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
+
             //这里也是用到了fastjson    把string 自动转化为   java的类对象(这里的类对象是GithubUser)      这样不需要自己一个个去set,他会自动匹配上的
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             return githubUser;

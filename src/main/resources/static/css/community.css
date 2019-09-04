@@ -1,0 +1,90 @@
+body{
+    background-color: #efefef;
+}
+.main{
+    margin:30px;
+    background-color: white;
+}
+.main button{
+    float: right;
+    margin-bottom: 20px;
+}
+.haha img{
+    width: 40px;
+    height: 40px;
+}
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+.question_operating{
+    color: #999;
+    font-size: 14px;
+}
+
+.comment{
+    margin: 10px 0;
+}
+
+.menu{
+    color: #999;
+
+}
+
+.menu .icon{
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.menu .active{
+    color: #439ef3;
+}
+
+.menu .icon:hover{
+    color: #439ef3;
+}
+
+.well{
+    margin-bottom: 10px;
+    background-image: none;
+    padding-bottom: 0px;
+}
+
+.media-body2{
+    border-bottom: 1px solid #0e0e0e1c
+}
+
+.reply-content{
+    margin-top: -5px
+}
+
+.menu2{
+    margin-bottom: 10px
+}
+
+
+.samequestion{
+    list-style: none;
+}
+
+.samequestion a{
+    text-decoration: none;
+    /*color: #155faa;*/
+}
+
+.samequestion a:hover{
+    color: #499ef3;
+}
+
+.tagtag{
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+
+.publish-tag-tab{
+    display: none;
+    margin-top: 10px;
+}

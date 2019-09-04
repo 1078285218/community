@@ -5,6 +5,7 @@ import com.community.community.dto.GithubUser;
 import com.community.community.mapper.UserMapper;
 import com.community.community.model.User;
 import com.community.community.provider.GithubProvider;
+import com.community.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -22,6 +24,8 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
     @Value("${github.client.id}")
     private String clientId;
@@ -46,18 +50,22 @@ public class AuthorizeController {
         accessTokenDTO.setClient_secret(clientSecret);
         accessTokenDTO.setRedirect_uri(redirectUri);
 
-        //进行第二步操作，根据获得的code去获取Token
+        //进行第二步操作，根据获得的code去获取Token --------------------2
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
+        //进行第三步操作，根据获得的Token去获取User（用户）信息------------------3
         GithubUser githubUser = githubProvider.getUser(accessToken);
+
         if(githubUser != null){
+
             User user = new User();
             String token = UUID.randomUUID().toString();//自定义token
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
-            userMapper.insert(user);//相当于写入了session
+            user.setAvatarUrl(githubUser.getAvatar_url());
+
+            userService.CreateOrUpdate(user);
+
             //登录成功，写cookie和session
             response.addCookie(new Cookie("token",token));
 
@@ -67,5 +75,17 @@ public class AuthorizeController {
             //登录失败，重新登录
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,HttpServletResponse response){
+        //清除session和cookie，最好在前端实现
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return "redirect:/";
     }
 }
