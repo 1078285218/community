@@ -27,7 +27,8 @@ public class FileController {
         System.out.println(tomcat_path);
 
         //路径设置为resource下
-        pic_path = tomcat_path+"\\src\\main\\resources\\static\\images\\customer_photo\\";
+        pic_path = tomcat_path+"/src/main/resources/static/images/customer_photo/";
+        System.out.println(pic_path);
 
         //随机生成图片名字
         newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
