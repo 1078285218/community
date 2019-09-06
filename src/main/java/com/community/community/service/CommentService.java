@@ -132,6 +132,11 @@ public class CommentService {
 
         //获取该评论的相关信息
         Comment comment = commentMapper.selectByPrimaryKey(commentId);
+
+        if (comment.getCommentator() == user.getId()){
+            return;
+        }
+
         System.out.println("获取评论相关信息"+comment);
         //增加点赞数
         comment.setLikeCount(comment.getLikeCount()+1);
