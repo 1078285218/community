@@ -9,8 +9,9 @@ public enum  CustomizeErrorCode {
     COMMENT_NOT_FOUND(2005,"回复的评论不存在了~~"),
     COMMENT_IS_EMPTY(2006,"输入内容不能为空"),
     READ_NOTIFICATION_FAIL(2007,"无法进行该操作，该条消息不是属于您的~"),
-    NOTIFICATION_NOT_FOUND(2008,"该消息不见了~┭┮﹏┭┮")
-    ;
+    NOTIFICATION_NOT_FOUND(2008,"该消息不见了~┭┮﹏┭┮"),
+    File_error(2009,"文件上传失败")
+            ;
 
     private Integer code;
     private String message;

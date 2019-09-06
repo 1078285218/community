@@ -82,10 +82,12 @@
                 <div class="media"  th:each="notificationDTO : ${NotificationAndPage.data}">
                     <!--回复问题 结果-->
                     <div class="media-body" >
-                        <a th:text="${notificationDTO.notifierName}"></a>
-                        <span th:if="${notificationDTO.type == 1}">回复了您的问题  </span>
-                        <span th:if="${notificationDTO.type == 2}">回复了您的评论——点击右方进入问题  </span>
+                        <span style="color: red;" th:text="${notificationDTO.notifierName}"></span>
+                        <span th:if="${notificationDTO.type == 1}">回复了您的问题——点击进入问题页面  </span>
+                        <span th:if="${notificationDTO.type == 2}">回复了您的评论——回复的内容为</span>
+                        <span th:if="${notificationDTO.type == 3}">点赞了您的评论</span>
                         <a th:href="@{'/notification/'+${notificationDTO.id}}" th:text="${notificationDTO.outerTitle}"></a>
+                        <span th:if="${notificationDTO.type == 3}">点击进入查看</span>
                         •<span th:text="${#dates.format(notificationDTO.gmtCreate,'yyyy-MM-dd HH:mm')}">20 分钟前</span>
                         <span  class="label label-warning" th:if="${notificationDTO.status == 0}">未读</span>
                         <span  class="label label-info" th:if="${notificationDTO.status == 1}">已读</span>

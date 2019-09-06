@@ -7,12 +7,15 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">社区demo</span>
+                    <span class="sr-only">七月社区</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">七月社区demo</a>
+                <a class="navbar-brand" href="/">
+                    <img style="width: 12%;float: left;margin-top: -9px;" src="/favicon.ico">
+                    月社区
+                </a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -30,7 +33,7 @@
                     <li><a href="/profile/reply">消息 <span class="badge" th:text="${session.unreadCount}"></span></a></li>
                     <!--1.请求用户的GitHub身份-->
 <!--                    <li th:if="${session.user == null}"><a href="https://github.com/login/oauth/authorize?client_id=7fa9483be17ac735da20&redirect_uri=http://localhost:8888/callback&scope=user&state=1">登录</a></li>-->
-                    <li th:if="${session.user == null}"><a th:href="@{https://github.com/login/oauth/authorize(client_id='7fa9483be17ac735da20',redirect_uri=${#httpServletRequest.getRequestURL()+'callback'},scope='user',state='1')}">登录</a></li>
+                    <li th:if="${session.user == null}"><a th:href="@{https://github.com/login/oauth/authorize(client_id='7fa9483be17ac735da20',redirect_uri=${#httpServletRequest.getRequestURL()+'callback'},scope='user',state=1)}">登录</a></li>
 
                     <li class="dropdown" th:if="${session.user != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">[[${session.user.getName()}]] <span class="caret"></span></a>

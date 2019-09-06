@@ -1,9 +1,7 @@
 package com.community.community.controller;
 
-import com.community.community.dto.CommentDTO;
 import com.community.community.dto.CommentPublishDTO;
 import com.community.community.dto.ResultDTO;
-import com.community.community.enums.CommentTypeEnum;
 import com.community.community.exception.CustomizeErrorCode;
 import com.community.community.exception.CustomizeException;
 import com.community.community.model.Comment;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class CommentController {
@@ -54,11 +51,28 @@ public class CommentController {
         return ResultDTO.okof();
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
-    public ResultDTO<List<CommentDTO>> coments(@PathVariable("id") Long id){
+//    @ResponseBody
+//    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
+//    public ResultDTO<List<CommentDTO>> coments(@PathVariable("id") Long id){
+//
+//        List<CommentDTO> commentDTOList = commentService.listByQuestionOrCommentId(id, CommentTypeEnum.COMMENT.getType());
+//        return ResultDTO.okof(commentDTOList);
+//    }
 
-        List<CommentDTO> commentDTOList = commentService.listByQuestionOrCommentId(id, CommentTypeEnum.COMMENT.getType());
-        return ResultDTO.okof(commentDTOList);
+    /**
+     * 点赞
+     */
+    @RequestMapping(value = "/commentlike",method = RequestMethod.GET)
+    public String commentLike(@RequestParam("commentId") Long commentId,
+                              @RequestParam("questionId")Long questionId,
+                              HttpServletRequest request){
+
+        User user = (User)request.getSession().getAttribute("user");
+        if (user == null){
+            throw new CustomizeException(CustomizeErrorCode.NOT_LOGIN);
+        }
+        commentService.addcommentLike(commentId,questionId,user);
+
+        return "redirect:/question/"+questionId;
     }
 }

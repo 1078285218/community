@@ -55,12 +55,18 @@ public class AuthorizeController {
         //进行第三步操作，根据获得的Token去获取User（用户）信息------------------3
         GithubUser githubUser = githubProvider.getUser(accessToken);
 
+        System.out.println(githubUser);
+
         if(githubUser != null){
 
             User user = new User();
             String token = UUID.randomUUID().toString();//自定义token
             user.setToken(token);
-            user.setName(githubUser.getName());
+            if (githubUser.getName()==null){
+                user.setName(githubUser.getId()+"");
+            }else{
+                user.setName(githubUser.getName());
+            }
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatar_url());
 

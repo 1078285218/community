@@ -127,4 +127,25 @@ public class CommentService {
 
         return commentDTOS;
     }
+
+    public void addcommentLike(Long commentId, Long questionId, User user) {
+
+        //获取该评论的相关信息
+        Comment comment = commentMapper.selectByPrimaryKey(commentId);
+        System.out.println("获取评论相关信息"+comment);
+        //增加点赞数
+        comment.setLikeCount(comment.getLikeCount()+1);
+        commentMapper.updateByPrimaryKey(comment);
+
+        Notification notification = new Notification();
+        notification.setNotifierName(user.getName());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(NotificationTypeEnum.LIKE.getType());
+        notification.setOuterid(questionId);
+        notification.setNotifier(user.getId().longValue());
+        notification.setReceiver(comment.getCommentator().longValue());
+        notification.setOuterTitle(comment.getContent());
+        notificationMapper.insert(notification);
+    }
 }

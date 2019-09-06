@@ -69,10 +69,10 @@ public class QuestionService {
 
         Page<Object> pages = PageHelper.startPage(page , size);
         List<Question> questions = questionMapper.selectBySearch(search);
-        System.out.println("当前页是:"+pages.getPageNum());
-        System.out.println("每页显示的记录数是:"+pages.getPageSize());
-        System.out.println("总页数是:"+pages.getPages());
-        System.out.println("总记录数是:"+pages.getTotal());
+//        System.out.println("当前页是:"+pages.getPageNum());
+//        System.out.println("每页显示的记录数是:"+pages.getPageSize());
+//        System.out.println("总页数是:"+pages.getPages());
+//        System.out.println("总记录数是:"+pages.getTotal());
         /*List<Question> questions = questionMapper.findAllQuestion(start,size);*/
 
         PaginationDTO paginationDTO = new PaginationDTO();
