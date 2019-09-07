@@ -32,15 +32,23 @@ public class QuestionService {
 
     //之后记得改用用多表级联，而不是用foreach
     public PaginationDTO findAllQuestion(Integer page, Integer size,String search) {
-        if (!StringUtils.isEmpty(search)){
+
+        /*if (!StringUtils.isEmpty(search)){*/
 
             String[] split = StringUtils.split(search, " ");
+
+
             if (split == null){
-                search = search;
+
+                search = null;
+
             }else {
                 search = Arrays.stream(split).collect(Collectors.joining("|"));
+
             }
-        }
+        /*}*/
+
+
 
         Integer start = size*(page-1);
 
@@ -48,6 +56,7 @@ public class QuestionService {
 
         //获取问题总数 total_count
         Integer count = questionMapper.countBySearch(search);
+
 
         /*这个限制其实不对，因为，如果可以手动修改页数的话，那么可能会输入“字母”输入字母会报错*/
         //总页数
